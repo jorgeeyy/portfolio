@@ -1,80 +1,115 @@
-import { ProjectCard } from "./ProjectCard"
+import { motion } from "framer-motion"
+import { ExternalLink, Github } from "lucide-react"
 
 const projects = [
   {
-    title: "NovaCommerce Dashboard",
-    description: "A high-performance e-commerce management system with real-time analytics and multi-store support.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjtkQ8wyOheht6ar5UE0H0PRIr6xh7ZTCBxZviRnpP7ZuVOWd7HN0mtZcmISG7cbr_HqoT9u_Xorceg_odFvw8QWEe5-ytgnSuhdnIg9nAuc4KZx2ReXn4n4Lo3UavZiQ17K5bN-uwS-zIilkGrh4Pr5_-dSCtmj2R_x27isL05oFw0tw6YfcUtQB0hWBL8K04UkajJBUkq5ezA0PcQHAmV7_s0Fd1SinaCIh0H_KdMdg_zQRvwJ2b5LRkpBxglodlzyNJl6XWYlB2",
-    tags: ["Next.js", "Tailwind CSS", "Stripe"],
-    link: "#",
-    isLarge: true,
+    title: "Security Bot",
+    description:
+      "A real-time server security system that detects and blocks brute-force attacks, monitors SSH intrusions, and fires instant Telegram alerts. Backed by MySQL for persistent logging and IP whitelisting.",
+    tags: ["Python", "FastAPI", "Docker", "MySQL", "Redis", "Telegram"],
+    link: "https://github.com/jorgeeyy/security-bot",
+    linkIcon: "github" as const,
   },
   {
-    title: "Zenith Finance App",
-    description: "Personalized wealth tracking and investment insights with smooth native animations.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBpu2uwZ1QUyTUG53Dztj-SBGCZnSxaz9iPK_YmCrP3m3Zsv_p9jkFJso_2dh_inTCF5lgSr1YCGdF8ZiCiEm0b9_VgoBz-qLoaBLNMBWJx299K3KFc9r17lSG3FHd_3z4XE6TZLx8Sv0OvAA4mXuXaOxZK5flJOG319Iw_F6sz_r-UMUwalsNiV-wO5ha5wwp1NGM90fif2dWHW6OmIPRL_wVy-7lgkt9i20V8ci1lYtwVvUYjLbkK3lB-kh3Qkj0xu0ZKBREY2guj",
-    tags: ["React Native", "TypeScript"],
-    link: "#",
-    isTall: true,
-    linkText: "Open App",
+    title: "NexusOCR",
+    description:
+      "A fast, locally-hosted Document Parsing and OCR web app built with Django and Tailwind CSS. Extracts raw text from dense images and converts complex PDFs into editable Word files with zero layout loss.",
+    tags: ["Python", "Django", "Tailwind CSS"],
+    link: "https://github.com/jorgeeyy/NexusOCR",
+    linkIcon: "github" as const,
+  },
+  {
+    title: "epub2pdf",
+    description:
+      "A lightweight Python CLI utility for converting EPUB e-books to PDF with clean formatting. MIT-licensed and open source.",
+    tags: ["Python", "CLI"],
+    link: "https://github.com/jorgeeyy/epub2pdf",
+    linkIcon: "github" as const,
+  },
+  {
+    title: "TipsyMixer",
+    description:
+      "A cocktail recipe discovery web app with curated drink recipes, ingredient breakdowns, and an interactive mixing experience.",
+    tags: ["Web", "PHP", "Typescript", "MySQL"],
+    link: "https://tipsymixergh.vercel.app",
     linkIcon: "external" as const,
-  },
-  {
-    title: "EtherView Analytics",
-    description: "Blockchain visualization and wallet explorer tool.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAhiu5iWJvuNzs2B_cGIggWW9ur__mz2AeE1n8Kxk_AESP2MjpGbIqw7Fo1LgppwffajOgk-KThgo4Ciik8698csxmDHw129D3Ixum4s_FkjMiS6-uXZfX5yNCtgaFzOkeQqShbb9OFG3mqlnBK0b9CrmJn1eoNyke3zE_HrzEZPS_7XeB8KnoLmxR2HzOznVe3agCqHBYHIWpjKrq7VOqyUgdCTRZwxwSbTkE__LBP4J3ItSoKCYHMetF9aVLCGCoVpkrvVnfeiTjn",
-    tags: ["Web3"],
-    link: "#",
-  },
-  {
-    title: "Scale CRM",
-    description: "Enterprise-ready customer relation management platform.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCX4SPFt8zgmaJ7cervj2cDynXuzcL3vazQJ1mdOqLrecUVRI3Rn5Tx1nHOlFd3rhT8hVtUM5Y5wT4_RqKembdeM58JExqz2wJDKp7P2-TGejeBmrGRqcu1kULiGSfg8xmjuL6tEF4jgfQdK5jFtRH4MvmlNLYbas6KjaZBebV1ugzTN3Xu3srb62nHlNenmwhBTXBKIEyMuqE_DjhgIga62g0k8Dkh7VAIiQAvcllXABIXlcnY8crv3aZZ2Y-mdNkCRrH3TPAQWXoh",
-    tags: ["SaaS"],
-    link: "#",
   },
 ]
 
 export const Projects = () => {
   return (
     <section className="py-12 lg:py-20 px-6 lg:px-40 max-w-[1400px] mx-auto w-full bg-background-dark">
-      {/* Page Heading */}
-      <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="max-w-2xl text-left">
-          <div className="flex items-center gap-2 text-primary font-bold mb-4 uppercase tracking-widest text-xs">
-            <span className="h-[2px] w-8 bg-primary"></span>
-            Selected Works
-          </div>
-          <h2 className="text-5xl lg:text-7xl font-black leading-tight tracking-tight mb-6 text-white">
-            Featured <span className="text-primary">Projects</span>
-          </h2>
-          <p className="text-slate-400 text-lg lg:text-xl font-normal max-w-xl">
-            A curation of high-performance web and mobile applications focusing on interactive experiences and scalable architecture.
-          </p>
+      {/* Heading */}
+      <div className="mb-16">
+        <div className="flex items-center gap-2 text-primary font-bold mb-4 uppercase tracking-widest text-xs">
+          <span className="h-[2px] w-8 bg-primary" />
+          Selected Works
         </div>
+        <h2 className="text-5xl lg:text-7xl font-black leading-tight tracking-tight mb-6 text-white">
+          Featured <span className="text-primary">Projects</span>
+        </h2>
+        <p className="text-slate-400 text-lg lg:text-xl font-normal max-w-xl">
+          A selection of projects spanning server security, AI-powered verification, developer tooling, and full-stack web apps.
+        </p>
+      </div>
 
-        {/* Category Chips */}
-        <div className="flex gap-2 flex-wrap pb-2">
-          <button className="flex h-10 items-center justify-center rounded-full bg-primary text-white px-6 text-sm font-semibold cursor-pointer">
-            All
-          </button>
-          {["Web", "Mobile", "UI/UX"].map((cat) => (
-            <button 
-              key={cat}
-              className="flex h-10 items-center justify-center rounded-full bg-[#232f48] text-slate-300 px-6 text-sm font-medium hover:bg-primary/20 transition-colors cursor-pointer"
+      {/* Project List */}
+      <ul className="divide-y divide-white/5">
+        {projects.map((project, i) => {
+          const Icon = project.linkIcon === "github" ? Github : ExternalLink
+          return (
+            <motion.li
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
             >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col md:flex-row md:items-start gap-4 md:gap-10 py-8 md:hover:pl-2 transition-all duration-300 relative"
+              >
+                {/* Index & Title (grouped for mobile) */}
+                <div className="flex items-center md:items-start gap-4 md:gap-0">
+                  <span className="text-xs font-mono text-slate-600 group-hover:text-primary transition-colors duration-300 shrink-0 w-8 md:w-6 md:pt-1">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  
+                  <div className="flex items-center justify-between flex-1 md:flex-none md:w-40 lg:w-52 md:pt-0.5">
+                    <h3 className="text-xl lg:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    {/* Mobile icon */}
+                    <Icon className="md:hidden size-5 text-slate-600 group-hover:text-primary transition-colors" />
+                  </div>
+                </div>
 
-      {/* Asymmetrical Grid Gallery */}
-      <div className="grid grid-cols-12 gap-6 auto-rows-[100px]">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} {...project} />
-        ))}
-      </div>
+                {/* Description + Tags */}
+                <div className="flex-1 min-w-0 md:pl-0 pl-12 md:ml-0">
+                  <p className="text-slate-400 text-sm leading-relaxed mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex gap-2 flex-wrap">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-slate-500 text-xs font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Desktop Link icon */}
+                <Icon className="hidden md:block size-5 text-slate-600 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 shrink-0" />
+              </a>
+            </motion.li>
+          )
+        })}
+      </ul>
     </section>
   )
 }

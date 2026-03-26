@@ -4,13 +4,13 @@ import avatar from "@/assets/avatar.png"
 
 export const VisualExperience = () => {
   return (
-    <section className="relative w-full lg:w-1/2 flex items-center justify-center p-8 bg-linear-to-br from-background-dark via-[#111] to-background-dark overflow-hidden min-h-[400px]">
+    <section className="relative w-full lg:w-1/2 flex items-center justify-center p-6 md:p-8 bg-linear-to-br from-background-dark via-[#111] to-background-dark overflow-hidden min-h-[280px] lg:min-h-0">
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,#135bec_0%,transparent_70%)] blur-[120px]"></div>
       </div>
       
       {/* Stylized 3D Abstract Object Visual */}
-      <div className="relative z-10 w-[280px] h-[280px] md:w-[450px] md:h-[450px] group">
+      <div className="relative z-10 w-[200px] h-[200px] md:w-[340px] md:h-[340px] lg:w-[450px] lg:h-[450px] group">
         <motion.div 
           className="absolute inset-0 rounded-3xl border-2 border-primary/40 shadow-[0_0_30px_rgba(19,91,236,0.2)]"
           initial={{ rotate: 12 }}

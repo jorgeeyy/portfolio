@@ -4,10 +4,9 @@ import { HeroContent } from "./HeroContent"
 
 export const Hero = () => {
   return (
-    <main className="flex flex-col lg:flex-row h-screen pt-20 relative bg-background-dark">
-      <VisualExperience />
+    <main className="flex flex-col-reverse lg:flex-row min-h-screen pt-20 relative bg-background-dark">
       <HeroContent />
-      {/* <TechTicker /> */}
+      <VisualExperience />
     </main>
   )
 }
