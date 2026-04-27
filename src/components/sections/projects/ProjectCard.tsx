@@ -35,12 +35,12 @@ export const ProjectCard = ({
       href={link ?? "#"}
       target={link ? "_blank" : undefined}
       rel="noopener noreferrer"
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-[#0f1623] p-8 lg:p-10 cursor-pointer ${colClass}`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-8 lg:p-10 cursor-pointer ${colClass}`}
       whileHover={{ scale: 1.015, borderColor: "rgba(255,255,255,0.12)" }}
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
     >
       {/* Top accent line that animates in on hover */}
-      <div className="absolute top-0 left-0 h-[2px] w-0 bg-primary group-hover:w-full transition-all duration-500 rounded-t-2xl" />
+      <div className="absolute top-0 left-0 h-0.5 w-0 bg-primary group-hover:w-full transition-all duration-500 rounded-t-2xl" />
 
       {/* Subtle radial glow on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -62,19 +62,19 @@ export const ProjectCard = ({
       {/* Title & Description */}
       <div className="flex-1">
         <h3
-          className={`font-black text-white mb-3 group-hover:text-primary transition-colors duration-300 ${
+          className={`font-black text-foreground mb-3 group-hover:text-primary transition-colors duration-300 ${
             isLarge ? "text-3xl lg:text-4xl" : "text-2xl"
           }`}
         >
           {title}
         </h3>
-        <p className="text-slate-400 text-base leading-relaxed">
+        <p className="text-muted-foreground text-base leading-relaxed">
           {description}
         </p>
       </div>
 
       {/* Footer link */}
-      <div className="mt-8 flex items-center gap-2 text-slate-500 group-hover:text-primary font-semibold text-sm transition-colors duration-300">
+      <div className="mt-8 flex items-center gap-2 text-muted-foreground group-hover:text-primary font-semibold text-sm transition-colors duration-300">
         {linkText}
         <LinkIcon className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
       </div>

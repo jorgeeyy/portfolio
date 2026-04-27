@@ -8,7 +8,7 @@ import { ContactPage } from "./pages/ContactPage"
 function App() {
   return (
     <Router>
-      <div className="relative flex min-h-screen w-full flex-col bg-background-dark font-display text-white overflow-x-hidden">
+      <div className="relative flex min-h-screen w-full flex-col bg-background text-foreground font-display overflow-x-hidden">
         <Header />
         <main className="flex-1">
           <Routes>

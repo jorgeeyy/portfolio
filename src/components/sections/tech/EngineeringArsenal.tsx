@@ -31,65 +31,54 @@ const techCategories = [
 
 export const EngineeringArsenal = () => {
   return (
-    <section className="py-24 px-6 lg:px-40 max-w-[1400px] mx-auto w-full bg-background-dark overflow-hidden">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+    <section className="py-28 px-6 md:px-12 lg:px-20 max-w-350 mx-auto w-full">
+      {/* Section header */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"
+        transition={{ duration: 0.5 }}
+        className="mb-20"
       >
-        <div className="max-w-2xl">
-          <div className="flex items-center gap-2 text-primary font-bold mb-4 uppercase tracking-widest text-xs">
-            <span className="h-[2px] w-8 bg-primary"></span>
-            Technical Expertise
-          </div>
-          <h2 className="text-4xl lg:text-6xl font-black leading-tight tracking-tight text-white mb-4">
-            Engineering <span className="text-primary">Arsenal</span>
-          </h2>
-          <p className="text-slate-400 text-lg font-normal max-w-xl">
-            A comprehensive stack of tools and frameworks utilized to build scalable, high-performance digital solutions.
-          </p>
-        </div>
+        <p className="text-xs text-muted-foreground tracking-[0.2em] uppercase mb-4">Stack</p>
+        <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight">
+          Tools & technologies
+        </h2>
       </motion.div>
-      
-      <div className="grid gap-12">
+
+      <div className="flex flex-col gap-16">
         {techCategories.map((category, catIdx) => (
-          <motion.div 
+          <motion.div
             key={category.name}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: catIdx * 0.1 }}
-            className="space-y-6"
+            transition={{ delay: catIdx * 0.08, duration: 0.4 }}
           >
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-4">
-              {category.name}
-              <div className="h-px flex-1 bg-white/5"></div>
-            </h3>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {/* Category label + divider */}
+            <div className="flex items-center gap-4 mb-8">
+              <span className="text-xs text-muted-foreground tracking-[0.15em] uppercase whitespace-nowrap">
+                {category.name}
+              </span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            {/* Tech items */}
+            <div className="flex flex-wrap gap-3">
               {category.techs.map((tech) => (
-                <motion.div
+                <div
                   key={tech.name}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="relative group p-6 rounded-2xl bg-[#1a2234] border border-white/5 hover:border-primary/50 transition-all cursor-default overflow-hidden"
+                  className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-border bg-muted/40 hover:border-foreground/20 hover:bg-muted/70 transition-all duration-200 cursor-default"
                 >
-                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="absolute -right-4 -top-4 w-12 h-12 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
-                  
-                  <div className="relative z-10 flex flex-col items-center gap-4">
-                    <div className="size-12 rounded-xl bg-background-dark/50 flex items-center justify-center border border-white/5 shadow-inner">
-                      <img 
-                        src={tech.logo} 
-                        alt={tech.name} 
-                        className="size-6 object-contain" 
-                      />
-                    </div>
-                    <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">
-                      {tech.name}
-                    </span>
-                  </div>
-                </motion.div>
+                  <img
+                    src={tech.logo}
+                    alt={tech.name}
+                    className="size-4 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                  />
+                  <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+                    {tech.name}
+                  </span>
+                </div>
               ))}
             </div>
           </motion.div>

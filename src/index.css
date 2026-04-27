@@ -33,17 +33,11 @@
   --color-primary-brand: #135bec;
   --color-bg-light: #f6f6f8;
   --color-bg-dark: #0a0a0a;
+  --color-background-dark: #0a0a0a;
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-
-  --animate-marquee: marquee 30s linear infinite;
-
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
 }
 
 @utility container {
@@ -59,41 +53,65 @@
 
 /* shadcn/ui base variables */
 :root {
-  --background: 222.2 84% 4.9%; /* Default to dark as per original design */
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 217.2 91.2% 59.8%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
+  color-scheme: light;
+  --background: 0 0% 98%;
+  --foreground: 222 17% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 17% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 17% 12%;
+  --primary: 220 86% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 20% 96%;
+  --secondary-foreground: 222 17% 12%;
+  --muted: 220 20% 96%;
+  --muted-foreground: 215 11% 45%;
+  --accent: 220 20% 96%;
+  --accent-foreground: 222 17% 12%;
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 48%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 17% 88%;
+  --input: 220 17% 88%;
+  --ring: 220 86% 50%;
   --radius: 0.5rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: 0 0% 4%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 4%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 4%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 220 86% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 0 0% 10%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 12%;
+  --input: 0 0% 12%;
+  --ring: 220 86% 50%;
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 250ms ease, color 250ms ease;
   }
-}
-
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
 }

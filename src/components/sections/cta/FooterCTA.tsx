@@ -1,26 +1,35 @@
-import { Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 
 export const FooterCTA = () => {
   return (
-    <section className="px-6 lg:px-40 max-w-[1400px] mx-auto w-full bg-background-dark pb-20">
-      <div className="p-12 rounded-2xl bg-primary relative overflow-hidden group">
-        <div className="absolute right-0 top-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl transition-transform duration-1000 group-hover:scale-125"></div>
-        
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">Have a project in mind?</h2>
-          <p className="text-white/80 text-lg mb-8 max-w-xl">
-            Let's build something extraordinary together. I'm currently available for freelance projects and consulting.
-          </p>
-          
-          <Button 
-            size="lg" 
-            className="bg-white text-primary hover:bg-white/90 font-black rounded-full h-14 px-8 transition-all hover:scale-105 active:scale-95 shadow-xl"
+    <section className="px-6 md:px-12 lg:px-20 max-w-350 mx-auto w-full pb-28">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="border-t border-border pt-20"
+      >
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+          <div className="space-y-4 max-w-lg">
+            <p className="text-xs text-muted-foreground tracking-[0.2em] uppercase">Get in touch</p>
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-snug">
+              Have a project in mind?<br />
+              <span className="text-foreground/55">Let's build it together.</span>
+            </h2>
+          </div>
+
+          <Link
+            to="/contact"
+            className="group inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 shrink-0"
           >
-            Start a Conversation <Mail className="ml-2 size-5" />
-          </Button>
+            Start a conversation
+            <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-200" />
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
