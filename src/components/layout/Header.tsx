@@ -1,82 +1,67 @@
-"use client"
 import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
-import { Menu, Moon, Sun, X } from "lucide-react"
-import logo from "@/assets/logo-new.png"
+import { Menu, X, Sun, Moon } from "../icons"
 
 const navLinks = [
-  { label: "Projects", to: "/projects" },
-  { label: "Contact", to: "/contact" },
+  { label: "Projects", href: "#projects" },
+  { label: "Stack", href: "#stack" },
+  { label: "Contact", href: "#contact" },
 ]
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [theme, setTheme] = useState<"light" | "dark">("dark")
-  const location = useLocation()
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const initialTheme = savedTheme ?? (systemPrefersDark ? "dark" : "light")
-
-    setTheme(initialTheme)
-    document.documentElement.classList.toggle("dark", initialTheme === "dark")
+    const saved = localStorage.getItem("theme") as "light" | "dark" | null
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+    const initial = saved ?? (prefersDark ? "dark" : "light")
+    setTheme(initial)
+    document.documentElement.classList.toggle("dark", initial === "dark")
   }, [])
 
   const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark"
-    setTheme(nextTheme)
-    document.documentElement.classList.toggle("dark", nextTheme === "dark")
-    localStorage.setItem("theme", nextTheme)
+    const next = theme === "dark" ? "light" : "dark"
+    setTheme(next)
+    document.documentElement.classList.toggle("dark", next === "dark")
+    localStorage.setItem("theme", next)
   }
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-background/90 border-b border-border/60 backdrop-blur-sm">
-      <div className="flex items-center justify-between px-6 py-5 md:px-16 max-w-350 mx-auto">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 hover:opacity-70 transition-opacity duration-200" onClick={() => setMenuOpen(false)}>
-          <img src={logo} alt="Logo" className="h-8 w-auto object-contain" />
-        </Link>
+    <header className="fixed top-0 z-50 w-full bg-bg/90 border-b border-border/60 backdrop-blur-sm">
+      <div className="flex items-center justify-between px-6 py-4 md:px-16 max-w-7xl mx-auto">
+        <a href="#" className="text-sm font-medium tracking-tight hover:opacity-70 transition-opacity">
+          George Inkoom
+        </a>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
-          <nav className="flex items-center gap-10">
-            {navLinks.map(({ label, to }) => (
-              <Link
-                key={to}
-                to={to}
-                className={`text-sm transition-colors duration-200 ${
-                  location.pathname === to
-                    ? "text-foreground"
-                    : "text-foreground/50 hover:text-foreground/80"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              className="text-sm text-muted-fg hover:text-fg transition-colors"
+            >
+              {label}
+            </a>
+          ))}
           <button
             onClick={toggleTheme}
-            className="inline-flex items-center justify-center size-9 rounded-md border border-border/70 text-foreground/65 hover:text-foreground hover:border-border transition-colors"
-            aria-label="Toggle light and dark mode"
+            className="flex items-center justify-center size-8 text-muted-fg hover:text-fg transition-colors"
+            aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
           </button>
-        </div>
+        </nav>
 
-        {/* Mobile controls */}
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="flex items-center justify-center size-9 rounded-md border border-border/70 text-foreground/65 hover:text-foreground hover:border-border transition-colors"
-            aria-label="Toggle light and dark mode"
+            className="flex items-center justify-center size-8 text-muted-fg hover:text-fg transition-colors"
+            aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
           </button>
-
           <button
-            className="flex items-center justify-center size-9 text-foreground/65 hover:text-foreground transition-colors"
+            className="flex items-center justify-center size-8 text-muted-fg hover:text-fg transition-colors"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
@@ -85,29 +70,18 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
       {menuOpen && (
-        <nav className="md:hidden border-t border-border/60 bg-background/95 backdrop-blur-sm px-6 py-6 flex flex-col gap-5">
-          {navLinks.map(({ label, to }) => (
-            <Link
-              key={to}
-              to={to}
-              className={`text-sm transition-colors duration-200 ${
-                location.pathname === to
-                  ? "text-foreground"
-                  : "text-foreground/50 hover:text-foreground"
-              }`}
+        <nav className="md:hidden border-t border-border/60 bg-bg/95 backdrop-blur-sm px-6 py-6 flex flex-col gap-5">
+          {navLinks.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="text-sm text-muted-fg hover:text-fg transition-colors"
             >
               {label}
-            </Link>
+            </a>
           ))}
-          <button
-            onClick={toggleTheme}
-            className="inline-flex w-fit items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
-          >
-            {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
-            Switch to {theme === "dark" ? "light" : "dark"} mode
-          </button>
         </nav>
       )}
     </header>

@@ -1,25 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Header } from "./components/layout/Header"
+import { Hero } from "./components/sections/hero/Hero"
+import { Projects } from "./components/sections/projects/Projects"
+import { EngineeringArsenal } from "./components/sections/tech/EngineeringArsenal"
+import { Contact } from "./components/sections/contact/Contact"
 import { Footer } from "./components/layout/Footer"
-import { HomePage } from "./pages/HomePage"
-import { ProjectsPage } from "./pages/ProjectsPage"
-import { ContactPage } from "./pages/ContactPage"
+import { FloatingOrbs } from "./components/FloatingOrbs"
+import { CursorGlow } from "./components/CursorGlow"
 
 function App() {
   return (
-    <Router>
-      <div className="relative flex min-h-screen w-full flex-col bg-background text-foreground font-display overflow-x-hidden">
+    <div className="relative flex min-h-screen w-full flex-col bg-bg text-fg font-display overflow-x-hidden">
+      <FloatingOrbs />
+      <CursorGlow />
+      <div className="relative z-10 flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
+          <Hero />
+          <Projects />
+          <EngineeringArsenal />
+          <Contact />
         </main>
         <Footer />
       </div>
-    </Router>
+    </div>
   )
 }
 

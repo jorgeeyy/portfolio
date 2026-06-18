@@ -1,5 +1,3 @@
-import { motion } from "framer-motion"
-
 const techCategories = [
   {
     name: "Backend & Systems",
@@ -24,64 +22,45 @@ const techCategories = [
     name: "Database & Infrastructure",
     techs: [
       { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql" },
-      { name: "Linux", logo: "https://cdn.simpleicons.org/linux/white" },
+      { name: "Linux", logo: "https://cdn.simpleicons.org/linux" },
+      { name: "Docker", logo: "https://cdn.simpleicons.org/docker" },
     ],
   },
 ]
 
 export const EngineeringArsenal = () => {
   return (
-    <section className="py-28 px-6 md:px-12 lg:px-20 max-w-350 mx-auto w-full">
-      {/* Section header */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-20"
-      >
-        <p className="text-xs text-muted-foreground tracking-[0.2em] uppercase mb-4">Stack</p>
-        <h2 className="text-3xl md:text-4xl font-semibold text-foreground tracking-tight">
-          Tools & technologies
-        </h2>
-      </motion.div>
+    <section id="stack" className="py-24 px-6 md:px-16 max-w-7xl mx-auto w-full">
+      <div className="max-w-2xl mx-auto animate-fade-up">
+        <p className="text-xs text-muted-fg tracking-[0.2em] uppercase mb-3">Stack</p>
+        <h2 className="font-heading text-3xl font-semibold tracking-tight mb-16">Tools & technologies</h2>
+      </div>
 
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-12 max-w-2xl mx-auto">
         {techCategories.map((category, catIdx) => (
-          <motion.div
+          <div
             key={category.name}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: catIdx * 0.08, duration: 0.4 }}
+            className="animate-fade-up"
+            style={{ animationDelay: `${catIdx * 80}ms`, animationFillMode: "both" }}
           >
-            {/* Category label + divider */}
-            <div className="flex items-center gap-4 mb-8">
-              <span className="text-xs text-muted-foreground tracking-[0.15em] uppercase whitespace-nowrap">
+            <div className="flex items-center gap-4 mb-5">
+              <span className="text-xs text-muted-fg tracking-[0.15em] uppercase whitespace-nowrap">
                 {category.name}
               </span>
               <div className="h-px flex-1 bg-border" />
             </div>
-
-            {/* Tech items */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {category.techs.map((tech) => (
-                <div
+                <span
                   key={tech.name}
-                  className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-border bg-muted/40 hover:border-foreground/20 hover:bg-muted/70 transition-all duration-200 cursor-default"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-fg/75 border border-border/80 bg-muted/40 rounded-full hover:border-fg/40 hover:text-fg transition-colors cursor-default"
                 >
-                  <img
-                    src={tech.logo}
-                    alt={tech.name}
-                    className="size-4 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-200"
-                  />
-                  <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
-                    {tech.name}
-                  </span>
-                </div>
+                  <img src={tech.logo} alt={tech.name} className="size-4 object-contain opacity-70 dark:invert" />
+                  {tech.name}
+                </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>
