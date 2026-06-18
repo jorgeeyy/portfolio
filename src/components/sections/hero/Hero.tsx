@@ -15,7 +15,7 @@ export const Hero = () => {
         </div>
 
         <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight mb-6">
-          George Inkoom
+          Building <span className="text-emerald-500">reliable systems</span> with purpose.
         </h1>
         <p className="text-lg sm:text-xl text-muted-fg max-w-lg mb-10 leading-relaxed">
           Software engineer building high-performance web, mobile, and AI applications — bridging complex business logic with scalable digital ecosystems.

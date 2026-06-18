@@ -29,7 +29,7 @@ export const Header = () => {
   return (
     <header className="fixed top-0 z-50 w-full bg-bg/90 border-b border-border/60 backdrop-blur-sm">
       <div className="flex items-center justify-between px-6 py-4 md:px-16 max-w-7xl mx-auto">
-        <a href="#" className="text-sm font-medium tracking-tight hover:opacity-70 transition-opacity">
+        <a href="#" className="text-xl font-bold tracking-tight hover:opacity-70 transition-opacity">
           George Inkoom
         </a>
 

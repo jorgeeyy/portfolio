@@ -2,10 +2,17 @@ import { ArrowUpRight } from "../../icons"
 
 const projects = [
   {
+    title: "TipsyMixer",
+    description:
+      "A cocktail recipe discovery web app with curated drink recipes, ingredient breakdowns, and an interactive mixing experience.",
+    tags: ["PHP", "TypeScript", "MySQL"],
+    link: "https://tipsymixergh.com",
+  },
+  {
     title: "Security Bot",
     description:
-      "A real-time server security system that detects and blocks brute-force attacks, monitors SSH intrusions, and fires instant Telegram alerts. Backed by MySQL for persistent logging and IP whitelisting.",
-    tags: ["Python", "FastAPI", "Docker", "MySQL", "Redis", "Telegram"],
+      "A real-time VPS security bot built on top of Fail2Ban that detects and blocks brute-force attacks, monitors SSH intrusions, and fires instant Telegram alerts.",
+    tags: ["Python", "Shell", "Telegram"],
     link: "https://github.com/jorgeeyy/security-bot",
   },
   {
@@ -21,14 +28,7 @@ const projects = [
       "A lightweight Python CLI utility for converting EPUB e-books to PDF with clean formatting. MIT-licensed and open source.",
     tags: ["Python", "CLI"],
     link: "https://github.com/jorgeeyy/epub2pdf",
-  },
-  {
-    title: "TipsyMixer",
-    description:
-      "A cocktail recipe discovery web app with curated drink recipes, ingredient breakdowns, and an interactive mixing experience.",
-    tags: ["PHP", "TypeScript", "MySQL"],
-    link: "https://tipsymixergh.com",
-  },
+  }
 ]
 
 export const Projects = () => {

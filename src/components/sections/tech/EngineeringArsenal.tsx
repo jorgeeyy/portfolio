@@ -5,7 +5,7 @@ const techCategories = [
       { name: "Python", logo: "https://cdn.simpleicons.org/python" },
       { name: "PHP", logo: "https://cdn.simpleicons.org/php" },
       { name: "Dart", logo: "https://cdn.simpleicons.org/dart" },
-      { name: "C#", logo: "https://cdn.simpleicons.org/csharp" },
+      { name: "C#", logo: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/csharp.svg" },
       { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript" },
     ],
   },
