@@ -18,7 +18,7 @@ export const Hero = () => {
           George Inkoom
         </h1>
         <p className="text-lg sm:text-xl text-muted-fg max-w-lg mb-10 leading-relaxed">
-          Software engineer focused on building high-performance web and mobile applications with clean, maintainable code.
+          Software engineer building high-performance web, mobile, and AI applications — bridging complex business logic with scalable digital ecosystems.
         </p>
 
         <div className="flex flex-wrap items-center gap-6">

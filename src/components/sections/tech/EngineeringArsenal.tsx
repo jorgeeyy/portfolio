@@ -1,20 +1,27 @@
 const techCategories = [
   {
-    name: "Backend & Systems",
+    name: "Languages",
     techs: [
       { name: "Python", logo: "https://cdn.simpleicons.org/python" },
-      { name: "FastAPI", logo: "https://cdn.simpleicons.org/fastapi" },
-      { name: "Django", logo: "https://cdn.simpleicons.org/django" },
-      { name: "Laravel", logo: "https://cdn.simpleicons.org/laravel" },
       { name: "PHP", logo: "https://cdn.simpleicons.org/php" },
-      { name: ".NET", logo: "https://cdn.simpleicons.org/dotnet" },
+      { name: "Dart", logo: "https://cdn.simpleicons.org/dart" },
+      { name: "C#", logo: "https://cdn.simpleicons.org/csharp" },
+      { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript" },
+    ],
+  },
+  {
+    name: "Backend",
+    techs: [
+      { name: "Django", logo: "https://cdn.simpleicons.org/django" },
+      { name: "FastAPI", logo: "https://cdn.simpleicons.org/fastapi" },
+      { name: "ASP.NET Core", logo: "https://cdn.simpleicons.org/dotnet" },
+      { name: "Laravel", logo: "https://cdn.simpleicons.org/laravel" },
     ],
   },
   {
     name: "Frontend & Mobile",
     techs: [
       { name: "React", logo: "https://cdn.simpleicons.org/react" },
-      { name: "TypeScript", logo: "https://cdn.simpleicons.org/typescript" },
       { name: "Flutter", logo: "https://cdn.simpleicons.org/flutter" },
     ],
   },
@@ -22,6 +29,9 @@ const techCategories = [
     name: "Database & Infrastructure",
     techs: [
       { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql" },
+      { name: "PostgreSQL", logo: "https://cdn.simpleicons.org/postgresql" },
+      { name: "SQLite", logo: "https://cdn.simpleicons.org/sqlite" },
+      { name: "SQL Server", logo: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/microsoftsqlserver.svg" },
       { name: "Linux", logo: "https://cdn.simpleicons.org/linux" },
       { name: "Docker", logo: "https://cdn.simpleicons.org/docker" },
     ],
