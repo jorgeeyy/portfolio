@@ -16,7 +16,7 @@ export const Contact = () => {
 
   const canSubmit = name && email && subject && message
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!canSubmit) return
 
@@ -72,7 +72,7 @@ export const Contact = () => {
             <Mail className="size-4 text-muted-fg mt-0.5 shrink-0" />
             <div>
               <p className="text-xs text-muted-fg mb-0.5">Email</p>
-              <p className="text-sm text-fg/80">ginkoom31@gmail.com</p>
+              <p className="text-sm text-fg/80">jqubez@gmail.com</p>
             </div>
           </div>
 
