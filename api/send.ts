@@ -1,4 +1,5 @@
 import { Resend } from "resend"
+import type { VercelRequest, VercelResponse } from "@vercel/node"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -16,31 +17,29 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-export async function POST(request: Request) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" })
+  }
+
   try {
     const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
+      (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ??
+      (req.headers["x-real-ip"] as string) ??
       "unknown"
 
     if (!checkRateLimit(ip)) {
-      return Response.json(
-        { error: "Too many requests. Please try again later." },
-        { status: 429 },
-      )
+      return res.status(429).json({ error: "Too many requests. Please try again later." })
     }
 
-    const { name, email, subject, message, honeypot } = await request.json()
+    const { name, email, subject, message, honeypot } = req.body
 
     if (!name || !email || !subject || !message) {
-      return Response.json(
-        { error: "All fields are required." },
-        { status: 400 },
-      )
+      return res.status(400).json({ error: "All fields are required." })
     }
 
     if (honeypot) {
-      return Response.json({ success: true })
+      return res.json({ success: true })
     }
 
     await resend.emails.send({
@@ -51,11 +50,8 @@ export async function POST(request: Request) {
       text: `From: ${name} (${email})\nSubject: ${subject}\n\n${message}`,
     })
 
-    return Response.json({ success: true })
+    return res.json({ success: true })
   } catch {
-    return Response.json(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 },
-    )
+    return res.status(500).json({ error: "Something went wrong. Please try again." })
   }
 }
