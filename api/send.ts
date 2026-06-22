@@ -22,6 +22,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" })
   }
 
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not set")
+    return res.status(500).json({ error: "Email service is not configured." })
+  }
+
   try {
     const ip =
       (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ??
@@ -56,7 +61,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     return res.json({ success: true })
-  } catch {
+  } catch (err) {
+    console.error("Handler error:", err)
     return res.status(500).json({ error: "Something went wrong. Please try again." })
   }
 }
