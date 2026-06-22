@@ -31,8 +31,14 @@ export const Contact = () => {
       })
 
       if (!res.ok) {
-        const body = await res.json()
-        throw new Error(body.error ?? "Something went wrong.")
+        let msg = "Something went wrong."
+        try {
+          const body = await res.json()
+          msg = body.error ?? msg
+        } catch {
+          msg = res.statusText || msg
+        }
+        throw new Error(msg)
       }
 
       setStatus("success")
@@ -157,7 +163,7 @@ export const Contact = () => {
               />
             </div>
 
-            <div aria-hidden="true" className="absolute left-[-9999px] opacity-0">
+            <div aria-hidden="true" className="absolute -left-2499.75 opacity-0">
               <label htmlFor="honeypot">Leave this empty</label>
               <input id="honeypot" name="honeypot" type="text" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
             </div>
