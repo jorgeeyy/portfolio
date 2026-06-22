@@ -1,8 +1,53 @@
+import { useState } from "react"
+import { Turnstile } from "@marsidev/react-turnstile"
 import { Mail, Send, GitHub, LinkedIn, WhatsApp } from "../../icons"
 
 const waMsg = encodeURIComponent("Hi George, I'm interested in working with you on a project. Let me know if you're available!")
 
+type Status = "idle" | "loading" | "success" | "error"
+
 export const Contact = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [subject, setSubject] = useState("")
+  const [message, setMessage] = useState("")
+  const [turnstileToken, setTurnstileToken] = useState("")
+  const [status, setStatus] = useState<Status>("idle")
+  const [errorMsg, setErrorMsg] = useState("")
+
+  const canSubmit = name && email && subject && message && turnstileToken
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!canSubmit) return
+
+    setStatus("loading")
+    setErrorMsg("")
+
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message, turnstileToken }),
+      })
+
+      if (!res.ok) {
+        const body = await res.json()
+        throw new Error(body.error ?? "Something went wrong.")
+      }
+
+      setStatus("success")
+      setName("")
+      setEmail("")
+      setSubject("")
+      setMessage("")
+      setTurnstileToken("")
+    } catch (err) {
+      setStatus("error")
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+    }
+  }
+
   return (
     <section id="contact" className="py-24 px-6 md:px-16 max-w-7xl mx-auto w-full">
       <div className="max-w-2xl mx-auto animate-fade-up">
@@ -54,51 +99,85 @@ export const Contact = () => {
           </div>
         </div>
 
-        <form className="space-y-5">
-          <div>
-            <label htmlFor="name" className="text-sm text-fg/80 mb-1.5 block">Name</label>
-            <input
-              id="name"
-              type="text"
-              className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors"
-              placeholder="Your name"
-            />
+        {status === "success" ? (
+          <div className="flex flex-col items-center justify-center text-center py-12">
+            <div className="size-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
+              <Send className="size-5 text-emerald-500" />
+            </div>
+            <h3 className="font-heading text-lg font-semibold mb-1">Message sent!</h3>
+            <p className="text-sm text-muted-fg">I'll get back to you as soon as I can.</p>
           </div>
-          <div>
-            <label htmlFor="email" className="text-sm text-fg/80 mb-1.5 block">Email</label>
-            <input
-              id="email"
-              type="email"
-              className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors"
-              placeholder="you@example.com"
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="name" className="text-sm text-fg/80 mb-1.5 block">Name</label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors"
+                placeholder="Your name"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="text-sm text-fg/80 mb-1.5 block">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="subject" className="text-sm text-fg/80 mb-1.5 block">Subject</label>
+              <input
+                id="subject"
+                type="text"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors"
+                placeholder="What's this about?"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="text-sm text-fg/80 mb-1.5 block">Message</label>
+              <textarea
+                id="message"
+                rows={5}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors resize-none"
+                placeholder="Tell me about your project or idea..."
+                required
+              />
+            </div>
+
+            <Turnstile
+              siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+              onSuccess={setTurnstileToken}
+              options={{ theme: "auto" }}
             />
-          </div>
-          <div>
-            <label htmlFor="subject" className="text-sm text-fg/80 mb-1.5 block">Subject</label>
-            <input
-              id="subject"
-              type="text"
-              className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors"
-              placeholder="What's this about?"
-            />
-          </div>
-          <div>
-            <label htmlFor="message" className="text-sm text-fg/80 mb-1.5 block">Message</label>
-            <textarea
-              id="message"
-              rows={5}
-              className="w-full bg-surface border border-border rounded-md px-4 py-2.5 text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:border-fg/40 transition-colors resize-none"
-              placeholder="Tell me about your project or idea..."
-            />
-          </div>
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-accent-fg text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
-          >
-            Send message
-            <Send className="size-3.5" />
-          </button>
-        </form>
+
+            {status === "error" && (
+              <p className="text-sm text-red-500">{errorMsg}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={!canSubmit || status === "loading"}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-accent-fg text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? "Sending..." : "Send message"}
+              <Send className="size-3.5" />
+            </button>
+          </form>
+        )}
       </div>
     </section>
   )
