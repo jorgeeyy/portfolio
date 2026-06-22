@@ -1,9 +1,10 @@
 import { useState } from "react"
+import { toast } from "sonner"
 import { Mail, Send, GitHub, LinkedIn, WhatsApp } from "../../icons"
 
 const waMsg = encodeURIComponent("Hi George, I'm interested in working with you on a project. Let me know if you're available!")
 
-type Status = "idle" | "loading" | "success" | "error"
+type Status = "idle" | "loading"
 
 export const Contact = () => {
   const [name, setName] = useState("")
@@ -12,7 +13,6 @@ export const Contact = () => {
   const [message, setMessage] = useState("")
   const [honeypot, setHoneypot] = useState("")
   const [status, setStatus] = useState<Status>("idle")
-  const [errorMsg, setErrorMsg] = useState("")
 
   const canSubmit = name && email && subject && message
 
@@ -21,7 +21,6 @@ export const Contact = () => {
     if (!canSubmit) return
 
     setStatus("loading")
-    setErrorMsg("")
 
     try {
       const res = await fetch("/api/send", {
@@ -41,15 +40,16 @@ export const Contact = () => {
         throw new Error(msg)
       }
 
-      setStatus("success")
+      toast.success("Message sent! I'll get back to you soon.")
       setName("")
       setEmail("")
       setSubject("")
       setMessage("")
       setHoneypot("")
     } catch (err) {
-      setStatus("error")
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+      toast.error(err instanceof Error ? err.message : "Something went wrong. Please try again.")
+    } finally {
+      setStatus("idle")
     }
   }
 
@@ -104,16 +104,7 @@ export const Contact = () => {
           </div>
         </div>
 
-        {status === "success" ? (
-          <div className="flex flex-col items-center justify-center text-center py-12">
-            <div className="size-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4">
-              <Send className="size-5 text-emerald-500" />
-            </div>
-            <h3 className="font-heading text-lg font-semibold mb-1">Message sent!</h3>
-            <p className="text-sm text-muted-fg">I'll get back to you as soon as I can.</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="name" className="text-sm text-fg/80 mb-1.5 block">Name</label>
               <input
@@ -168,10 +159,6 @@ export const Contact = () => {
               <input id="honeypot" name="honeypot" type="text" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
             </div>
 
-            {status === "error" && (
-              <p className="text-sm text-red-500">{errorMsg}</p>
-            )}
-
             <button
               type="submit"
               disabled={!canSubmit || status === "loading"}
@@ -181,7 +168,6 @@ export const Contact = () => {
               <Send className="size-3.5" />
             </button>
           </form>
-        )}
       </div>
     </section>
   )
