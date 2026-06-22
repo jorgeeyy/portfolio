@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Turnstile } from "@marsidev/react-turnstile"
 import { Mail, Send, GitHub, LinkedIn, WhatsApp } from "../../icons"
 
 const waMsg = encodeURIComponent("Hi George, I'm interested in working with you on a project. Let me know if you're available!")
@@ -11,11 +10,11 @@ export const Contact = () => {
   const [email, setEmail] = useState("")
   const [subject, setSubject] = useState("")
   const [message, setMessage] = useState("")
-  const [turnstileToken, setTurnstileToken] = useState("")
+  const [honeypot, setHoneypot] = useState("")
   const [status, setStatus] = useState<Status>("idle")
   const [errorMsg, setErrorMsg] = useState("")
 
-  const canSubmit = name && email && subject && message && turnstileToken
+  const canSubmit = name && email && subject && message
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,7 +27,7 @@ export const Contact = () => {
       const res = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message, turnstileToken }),
+        body: JSON.stringify({ name, email, subject, message, honeypot }),
       })
 
       if (!res.ok) {
@@ -41,7 +40,7 @@ export const Contact = () => {
       setEmail("")
       setSubject("")
       setMessage("")
-      setTurnstileToken("")
+      setHoneypot("")
     } catch (err) {
       setStatus("error")
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.")
@@ -158,11 +157,10 @@ export const Contact = () => {
               />
             </div>
 
-            <Turnstile
-              siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
-              onSuccess={setTurnstileToken}
-              options={{ theme: "auto" }}
-            />
+            <div aria-hidden="true" className="absolute left-[-9999px] opacity-0">
+              <label htmlFor="honeypot">Leave this empty</label>
+              <input id="honeypot" name="honeypot" type="text" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
+            </div>
 
             {status === "error" && (
               <p className="text-sm text-red-500">{errorMsg}</p>

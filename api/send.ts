@@ -16,19 +16,6 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-async function verifyTurnstile(token: string): Promise<boolean> {
-  const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      secret: process.env.TURNSTILE_SECRET_KEY ?? "",
-      response: token,
-    }),
-  })
-  const data = await res.json()
-  return data.success === true
-}
-
 export async function POST(request: Request) {
   try {
     const ip =
@@ -43,21 +30,17 @@ export async function POST(request: Request) {
       )
     }
 
-    const { name, email, subject, message, turnstileToken } = await request.json()
+    const { name, email, subject, message, honeypot } = await request.json()
 
-    if (!name || !email || !subject || !message || !turnstileToken) {
+    if (!name || !email || !subject || !message) {
       return Response.json(
         { error: "All fields are required." },
         { status: 400 },
       )
     }
 
-    const isValid = await verifyTurnstile(turnstileToken)
-    if (!isValid) {
-      return Response.json(
-        { error: "Security check failed. Please try again." },
-        { status: 400 },
-      )
+    if (honeypot) {
+      return Response.json({ success: true })
     }
 
     await resend.emails.send({
